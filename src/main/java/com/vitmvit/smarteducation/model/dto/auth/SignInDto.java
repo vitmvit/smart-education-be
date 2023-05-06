@@ -18,7 +18,7 @@ public class SignInDto {
     @NotNull
     @NotBlank
     @Email
-    private String login;
+    private String username;
 
     @NotNull
     @NotBlank

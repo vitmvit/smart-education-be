@@ -34,10 +34,10 @@ public class RoleCreator implements CommandLine {
      * создаем недостающие роли если нет
      */
     private void createRoles() {
-        List<String> enumList = new ArrayList<>(Arrays.asList(RoleEnumUtils.allRoles()));
+        List<String> enumList = new ArrayList<>(Arrays.asList(RoleEnumUtils.allRolesArray()));
         enumList.removeAll(roleService.findAll().stream().map(IdNameEntity::getName).toList());
         if (enumList.size() > 0) {
-            enumList.forEach(name -> roleService.save(new Role(name)));
+            enumList.forEach(roleName -> roleService.save(new Role(roleName)));
         }
     }
 }

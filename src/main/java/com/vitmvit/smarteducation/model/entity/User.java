@@ -34,7 +34,6 @@ public class User extends IdNameLogEntity implements UserDetails {
 
     private String lastName;
     private String middleName;
-
     private String phoneNumber;
     private Integer studentNumber;
 
@@ -42,7 +41,6 @@ public class User extends IdNameLogEntity implements UserDetails {
     // 1 - активен
     // 2 - не активен
     private Integer active;
-
     private String description;
 
     //------------------------------------------------------------------------------------------------------------------

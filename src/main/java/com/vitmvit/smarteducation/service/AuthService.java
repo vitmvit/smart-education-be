@@ -6,7 +6,7 @@ import com.vitmvit.smarteducation.model.dto.auth.TokenDto;
 
 public interface AuthService {
 
-    TokenDto signUp(SignUpDto signUpDto);
+    TokenDto signUp(SignUpDto dto);
 
-    TokenDto signIn(SignInDto signInDto);
+    TokenDto signIn(SignInDto dto);
 }

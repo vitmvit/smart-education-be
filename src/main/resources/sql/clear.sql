@@ -1,5 +1,5 @@
 SET FOREIGN_KEY_CHECKS = 0;
-TRUNCATE role;
-TRUNCATE user;
-TRUNCATE link_user_role;
-TRUNCATE cabinet;
+TRUNCATE TABLE role;
+TRUNCATE TABLE user;
+TRUNCATE TABLE link_user_role;
+TRUNCATE TABLE cabinet;

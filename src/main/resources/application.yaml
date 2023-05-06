@@ -9,4 +9,4 @@ spring:
 
 jwt:
   secret: smart-education-vmv
-  session-time: 3600
+  sessionTime: 3600000

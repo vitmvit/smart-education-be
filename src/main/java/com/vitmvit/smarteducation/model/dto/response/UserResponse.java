@@ -8,8 +8,12 @@ import lombok.Setter;
 @Setter
 public class UserResponse extends IdNameLogDto {
 
+    private String avatarUuid;
+    private String login;
     private String lastName;
     private String middleName;
     private String phoneNumber;
     private Integer studentNumber;
+    private Integer active;
+    private String description;
 }

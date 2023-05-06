@@ -12,6 +12,11 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+/**
+ * класс исключительно для самостоятельной регистрации студентов,
+ * чтобы снизить объем работы для работников ВУЗа, в дальнейшем,
+ * необходимо только сменить его роль с USER на STUDENT
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

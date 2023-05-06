@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api")
 public class UserController {
@@ -86,14 +87,14 @@ public class UserController {
 
     // open
 
-    @GetMapping("/open/users/exists")
-    public ResponseEntity<Boolean> existsByLogin(@RequestParam String login) {
-        return new ResponseEntity<>(userFacade.existsByLogin(login), HttpStatus.OK);
-    }
+//    @GetMapping("/open/users/exists")
+//    public ResponseEntity<Boolean> existsByLogin(@RequestParam String login) {
+//        return new ResponseEntity<>(userFacade.existsByLogin(login), HttpStatus.OK);
+//    }
 
-    @GetMapping("/open/users/by")
-    public ResponseEntity<UserResponse> find(@RequestParam(name = "login") String login,
-                                             @RequestParam(name = "password", required = false) String password) {
-        return new ResponseEntity<>(userFacade.findByLoginAndPassword(login, password), HttpStatus.OK);
-    }
+//    @GetMapping("/auth/users/by")
+//    public ResponseEntity<UserResponse> find(@RequestParam(name = "login") String login,
+//                                             @RequestParam(name = "password", required = false) String password) {
+//        return new ResponseEntity<>(userFacade.findByLoginAndPassword(login, password), HttpStatus.OK);
+//    }
 }

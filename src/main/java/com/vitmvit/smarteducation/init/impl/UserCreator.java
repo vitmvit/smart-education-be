@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+import static com.vitmvit.smarteducation.constant.Constants.ROLE_PREFIX;
+
 /**
  * @see "https://www.baeldung.com/spring-qualifier-annotation"
  */
@@ -51,7 +53,7 @@ public class UserCreator implements CommandLine {
         user.setAvatarUuid("none");
         user.setLogin(login);
         user.setPassword(loginPrefix);
-        user.setRoleList(List.of(roleService.findOne(loginPrefix.toUpperCase())));
+        user.setRoleList(List.of(roleService.findOne(ROLE_PREFIX + loginPrefix.toUpperCase())));
         user.setName(loginPrefix);
         user.setLastName(loginPrefix);
         user.setMiddleName(loginPrefix);
