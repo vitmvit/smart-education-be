@@ -45,12 +45,12 @@ class SettingsServiceImpl implements SettingsService {
     @Override
     @Transactional
     public void addSettings(String key, String value) {
-        Settings settings = settingsRepository.findByKey(key).orElse(null);
-        if (settings == null) {
+        Settings exists = settingsRepository.findByKey(key).orElse(null);
+        if (exists == null) {
             settingsRepository.save(new Settings(key, value));
         } else {
-            settings.setValue(value.startsWith(",") ? value.substring(1) : value);
-            settingsRepository.save(settings);
+            exists.setValue(value.startsWith(",") ? value.substring(1) : value);
+            settingsRepository.save(exists);
         }
         SettingsSingleton.setInstance(settingsRepository.getSettings());
     }

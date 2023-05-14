@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static com.vitmvit.smarteducation.constant.Constants.ROLE_PREFIX;
+import static com.vitmvit.smarteducation.config.constants.Constants.ROLE_PREFIX;
 
 /**
  * @see "https://www.baeldung.com/spring-qualifier-annotation"

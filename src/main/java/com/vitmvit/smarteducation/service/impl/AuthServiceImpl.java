@@ -43,7 +43,7 @@ class AuthServiceImpl implements AuthService {
     @Override
     public TokenDto signUp(SignUpDto dto) {
         User user = new User();
-        user.setAvatarUuid("none");
+        user.setAvatarUuid("");
         user.setLogin(dto.getLogin());
         user.setPassword(dto.getPasswords().getPassword());
         user.setRoleList(List.of());

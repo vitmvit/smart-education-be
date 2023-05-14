@@ -5,6 +5,9 @@ import lombok.Getter;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @see "https://refactoring.guru/ru/design-patterns/singleton"
+ */
 public class SettingsSingleton {
 
     private static SettingsSingleton instance;

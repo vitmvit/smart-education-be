@@ -1,6 +1,6 @@
 package com.vitmvit.smarteducation.facade.impl;
 
-import com.vitmvit.smarteducation.constant.RoleEnum;
+import com.vitmvit.smarteducation.config.constants.RoleEnum;
 import com.vitmvit.smarteducation.converter.RoleConverter;
 import com.vitmvit.smarteducation.converter.UserConverter;
 import com.vitmvit.smarteducation.facade.UserFacade;
@@ -14,6 +14,7 @@ import com.vitmvit.smarteducation.model.entity.User;
 import com.vitmvit.smarteducation.service.CabinetTeacherService;
 import com.vitmvit.smarteducation.service.RoleService;
 import com.vitmvit.smarteducation.service.UserService;
+import com.vitmvit.smarteducation.util.IdUtils;
 import com.vitmvit.smarteducation.util.StringUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.ValidationException;
 import java.util.List;
 
 @AllArgsConstructor
@@ -51,11 +53,41 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Override
+    public boolean current(String login) {
+        return login.equalsIgnoreCase(SecurityContextHolder.getContext().getAuthentication().getName());
+    }
+
+    @Override
+    public UserResponse findOneBy(Long id, String login) {
+        if (IdUtils.isPresent(id)) {
+            return userConverter.convert(userService.findById(id));
+        } else if (StringUtils.isNotEmpty(login)) {
+            return userConverter.convert(userService.findByLogin(login));
+        }
+        throw new ValidationException("Bad parameters");
+    }
+
+    @Override
     public UserResponse findByLoginAndPassword(String login, String password) {
         if (password == null) {
             return userConverter.convert(userService.findByLogin(login));
         }
         return userConverter.convert(userService.findByLoginAndPassword(login, password));
+    }
+
+    @Override
+    public List<UserResponse> findAllTeachers() {
+        return userConverter.convert(userService.findAllTeachers());
+    }
+
+    @Override
+    public List<UserResponse> findAllByGroup(Long groupId, String groupName) {
+        if (IdUtils.isPresent(groupId)) {
+            return userConverter.convert(userService.findAllByGroup(groupId));
+        } else if (StringUtils.isNotEmpty(groupName)) {
+            return userConverter.convert(userService.findAllByGroup(groupName));
+        }
+        throw new ValidationException("Bad parameters");
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -154,9 +186,9 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public RoleResponse findRole(Long id, String name) {
-        if (id != null) {
+        if (IdUtils.isPresent(id)) {
             return roleConverter.convert(roleService.findOne(id));
-        } else if (name != null) {
+        } else if (StringUtils.isNotEmpty(name)) {
             return roleConverter.convert(roleService.findOne(name));
         }
         throw new EntityNotFoundException("Role not found");

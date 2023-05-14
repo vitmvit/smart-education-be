@@ -20,7 +20,12 @@ public class CabinetStudent extends Cabinet {
 
     //------------------------------------------------------------------------------------------------------------------
 
-    @OneToOne
-    @JoinColumn(name = "group_student_id", referencedColumnName = "id")
-    private SGroup sGroupSchoolboy;
+    @ManyToOne
+    @JoinColumn(
+            name = "group_student_id",
+            referencedColumnName = "id",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "fk_cabinet_student_to_group")
+    )
+    private StudentsGroup groupStudent;
 }

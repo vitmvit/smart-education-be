@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-import static com.vitmvit.smarteducation.constant.Constants.DATE_PATTERN;
-import static com.vitmvit.smarteducation.constant.Constants.DATE_TIME_PATTERN;
+import static com.vitmvit.smarteducation.config.constants.Constants.DATE_PATTERN;
+import static com.vitmvit.smarteducation.config.constants.Constants.DATE_TIME_PATTERN;
 
 public class DateConverter {
 

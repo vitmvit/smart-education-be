@@ -42,7 +42,7 @@ public class CabinetTeacherServiceImpl implements CabinetTeacherService {
     }
 
     @Override
-    public CabinetTeacher save(CabinetTeacher cabinetTeacher) {
-        return cabinetTeacherRepository.save(cabinetTeacher);
+    public CabinetTeacher save(CabinetTeacher model) {
+        return cabinetTeacherRepository.save(model);
     }
 }

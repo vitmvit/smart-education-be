@@ -6,6 +6,9 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
+/**
+ * @see "https://mapstruct.org/"
+ */
 @Mapper(componentModel = "spring")
 public interface RoleConverter {
 

@@ -1,11 +1,12 @@
 package com.vitmvit.smarteducation.service.impl;
 
 import com.vitmvit.smarteducation.converter.SubjectConverter;
-import com.vitmvit.smarteducation.model.dto.request.SubjectRequest;
+import com.vitmvit.smarteducation.model.dto.request.StudentRequest;
 import com.vitmvit.smarteducation.model.dto.response.SubjectResponse;
 import com.vitmvit.smarteducation.model.entity.Subject;
 import com.vitmvit.smarteducation.repository.SubjectRepository;
 import com.vitmvit.smarteducation.service.SubjectService;
+import com.vitmvit.smarteducation.util.IdUtils;
 import com.vitmvit.smarteducation.util.StringUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,18 @@ public class SubjectServiceImpl implements SubjectService {
     private final SubjectConverter subjectConverter;
 
     @Override
+    public SubjectResponse findOne(Long id) {
+        return findOne(id, null);
+    }
+
+    @Override
+    public SubjectResponse findOne(String name) {
+        return findOne(null, name);
+    }
+
+    @Override
     public SubjectResponse findOne(Long id, String name) {
-        if (id != null) {
+        if (IdUtils.isPresent(id)) {
             return subjectConverter.convert(
                     subjectRepository.findById(id).orElseThrow(
                             () -> new EntityNotFoundException("Subject not found by id: " + id)
@@ -45,8 +56,8 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public SubjectResponse save(SubjectRequest dto) {
-        if (dto.getId() == null) {
+    public SubjectResponse save(StudentRequest dto) {
+        if (IdUtils.isNotPresent(dto.getId())) {
             return subjectConverter.convert(
                     subjectRepository.save(
                             subjectConverter.convert(dto)

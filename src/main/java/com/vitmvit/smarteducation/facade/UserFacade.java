@@ -15,7 +15,15 @@ public interface UserFacade {
 
     UserResponse me();
 
+    boolean current(String login);
+
+    UserResponse findOneBy(Long id, String login);
+
     UserResponse findByLoginAndPassword(String login, String password);
+
+    List<UserResponse> findAllTeachers();
+
+    List<UserResponse> findAllByGroup(Long groupId, String groupName);
 
     //------------------------------------------------------------------------------------------------------------------
 

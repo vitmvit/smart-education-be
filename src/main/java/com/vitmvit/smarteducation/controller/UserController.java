@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @AllArgsConstructor
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -58,6 +60,23 @@ public class UserController {
 
     // auth
 
+    @GetMapping("/auth/users/by")
+    public ResponseEntity<UserResponse> findOneBy(@RequestParam(name = "id", required = false) Long id,
+                                                  @RequestParam(name = "login", required = false) String name) {
+        return new ResponseEntity<>(userFacade.findOneBy(id, name), HttpStatus.OK);
+    }
+
+    @GetMapping("/auth/users/teachers")
+    public ResponseEntity<List<UserResponse>> findAllTeachers() {
+        return new ResponseEntity<>(userFacade.findAllTeachers(), HttpStatus.OK);
+    }
+
+    @GetMapping("/auth/users/group")
+    public ResponseEntity<List<UserResponse>> findAllByGroup(@RequestParam(name = "groupId", required = false) Long groupId,
+                                                             @RequestParam(name = "groupName", required = false) String groupName) {
+        return new ResponseEntity<>(userFacade.findAllByGroup(groupId, groupName), HttpStatus.OK);
+    }
+
     @PostMapping("/auth/users/update/avatar")
     public ResponseEntity<UserResponse> updateAvatar(@RequestBody AvatarUpdateRequest dto) {
         return new ResponseEntity<>(userFacade.updateAvatar(dto), HttpStatus.OK);
@@ -68,6 +87,11 @@ public class UserController {
     @GetMapping("/user/users/me")
     public ResponseEntity<UserResponse> me() {
         return new ResponseEntity<>(userFacade.me(), HttpStatus.OK);
+    }
+
+    @GetMapping("/user/users/current")
+    public ResponseEntity<Boolean> current(@RequestParam String login) {
+        return new ResponseEntity<>(userFacade.current(login), HttpStatus.OK);
     }
 
     @PostMapping("/user/users/update/name")

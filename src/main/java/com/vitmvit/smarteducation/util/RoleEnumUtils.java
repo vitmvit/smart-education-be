@@ -1,11 +1,13 @@
 package com.vitmvit.smarteducation.util;
 
-import com.vitmvit.smarteducation.constant.RoleEnum;
+import com.vitmvit.smarteducation.config.constants.RoleEnum;
+import lombok.experimental.UtilityClass;
 
 import java.util.Arrays;
 
-import static com.vitmvit.smarteducation.constant.Constants.ROLE_PREFIX;
+import static com.vitmvit.smarteducation.config.constants.Constants.ROLE_PREFIX;
 
+@UtilityClass
 public class RoleEnumUtils {
 
     // for creating roles into DB

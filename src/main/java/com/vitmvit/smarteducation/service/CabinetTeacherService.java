@@ -10,5 +10,5 @@ public interface CabinetTeacherService {
 
     CabinetTeacher findOneByUserId(Long userId);
 
-    CabinetTeacher save(CabinetTeacher cabinetTeacher);
+    CabinetTeacher save(CabinetTeacher model);
 }

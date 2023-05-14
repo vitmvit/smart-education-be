@@ -1,12 +1,15 @@
 package com.vitmvit.smarteducation.service.impl;
 
-import com.vitmvit.smarteducation.constant.RoleEnum;
+import com.vitmvit.smarteducation.config.constants.RoleEnum;
 import com.vitmvit.smarteducation.model.entity.Role;
 import com.vitmvit.smarteducation.model.entity.User;
 import com.vitmvit.smarteducation.repository.RoleRepository;
 import com.vitmvit.smarteducation.repository.UserRepository;
 import com.vitmvit.smarteducation.service.UserService;
+import com.vitmvit.smarteducation.specification.UserSpecification;
+import com.vitmvit.smarteducation.util.IdUtils;
 import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -33,6 +36,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public User findById(Long id) {
+        return userRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("User not found by id: " + id)
+        );
+    }
+
+    @Override
     public User findByLogin(String login) {
         return userRepository.findByLogin(login).orElseThrow(
                 () -> new EntityNotFoundException("User not found by login: " + login)
@@ -49,22 +59,37 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User save(User user) {
-        if (user.getId() == null) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public List<User> findAllTeachers() {
+        return userRepository.findAll(Specification.where(UserSpecification.findAllTeachers()));
+    }
+
+    @Override
+    public List<User> findAllByGroup(Long groupId) {
+        return userRepository.findAllByGroupId(groupId);
+    }
+
+    @Override
+    public List<User> findAllByGroup(String groupName) {
+        return userRepository.findAllByGroupName(groupName);
+    }
+
+    @Override
+    public User save(User model) {
+        if (IdUtils.isNotPresent(model.getId())) {
+            model.setPassword(passwordEncoder.encode(model.getPassword()));
             // если роли не определены, то по умолчанию назначается роль USER
-            if (user.getRoleList() == null || user.getRoleList().size() == 0) {
+            if (model.getRoleList() == null || model.getRoleList().size() == 0) {
                 Role role = roleRepository.findByName(RoleEnum.USER.getName()).orElseThrow(
                         () -> new EntityNotFoundException("Role not found by name: " + RoleEnum.USER)
                 );
-                user.setRoleList(List.of(role));
+                model.setRoleList(List.of(role));
             }
-            return userRepository.save(user);
+            return userRepository.save(model);
         } else {
-            User target = findByLogin(user.getLogin());
-            target.setName(user.getName());
-            target.setLastName(user.getLastName());
-            target.setMiddleName(user.getMiddleName());
+            User target = findByLogin(model.getLogin());
+            target.setName(model.getName());
+            target.setLastName(model.getLastName());
+            target.setMiddleName(model.getMiddleName());
             // пароль при обновлении сущности остается прежним see PasswordChangeDto
             //target.setPassword(passwordEncoder.encode(user.getPassword()));
             return userRepository.save(target);

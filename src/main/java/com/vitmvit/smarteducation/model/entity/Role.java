@@ -9,7 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import java.util.List;
 
-import static com.vitmvit.smarteducation.constant.Constants.ROLE_PREFIX;
+import static com.vitmvit.smarteducation.config.constants.Constants.ROLE_PREFIX;
 
 @NoArgsConstructor
 @Getter
@@ -33,7 +33,7 @@ public class Role extends IdNameEntity implements GrantedAuthority {
     /**
      * @see "com.vitmvit.smarteducation.converter.UserDetailsConverterImpl"
      */
-    public String getRoleName() {
+    public String getFullName() {
         return ROLE_PREFIX + getName();
     }
 

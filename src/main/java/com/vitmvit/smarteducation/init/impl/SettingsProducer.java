@@ -1,7 +1,7 @@
 package com.vitmvit.smarteducation.init.impl;
 
+import com.vitmvit.smarteducation.config.constants.Constants;
 import com.vitmvit.smarteducation.config.singleton.SettingsSingleton;
-import com.vitmvit.smarteducation.constant.Constants;
 import com.vitmvit.smarteducation.init.CommandLine;
 import com.vitmvit.smarteducation.service.SettingsService;
 import lombok.extern.slf4j.Slf4j;

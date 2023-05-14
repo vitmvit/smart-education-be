@@ -6,6 +6,7 @@ import com.vitmvit.smarteducation.model.dto.response.FacultyResponse;
 import com.vitmvit.smarteducation.model.entity.Cathedra;
 import com.vitmvit.smarteducation.repository.CathedraRepository;
 import com.vitmvit.smarteducation.service.CathedraService;
+import com.vitmvit.smarteducation.util.IdUtils;
 import com.vitmvit.smarteducation.util.StringUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class CathedraServiceImpl implements CathedraService {
 
     @Override
     public FacultyResponse findOne(Long id, String name) {
-        if (id != null) {
+        if (IdUtils.isPresent(id)) {
             return cathedraConverter.convert(
                     cathedraRepository.findById(id).orElseThrow(
                             () -> new EntityNotFoundException("Cathedra not found by id: " + id)
@@ -46,18 +47,18 @@ public class CathedraServiceImpl implements CathedraService {
 
     @Override
     public FacultyResponse save(FacultyRequest dto) {
-        if (dto.getId() == null) {
+        if (IdUtils.isNotPresent(dto.getId())) {
             return cathedraConverter.convert(
                     cathedraRepository.save(
                             cathedraConverter.convert(dto)
                     )
             );
         } else {
-            Cathedra cathedra = cathedraRepository.findById(dto.getId()).orElseThrow(
+            Cathedra exists = cathedraRepository.findById(dto.getId()).orElseThrow(
                     () -> new EntityNotFoundException("Cathedra not found by id: " + dto.getId())
             );
-            cathedra.setName(dto.getName());
-            return cathedraConverter.convert(cathedraRepository.save(cathedra));
+            exists.setName(dto.getName());
+            return cathedraConverter.convert(cathedraRepository.save(exists));
         }
     }
 

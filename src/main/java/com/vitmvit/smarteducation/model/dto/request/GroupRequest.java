@@ -17,4 +17,5 @@ public class GroupRequest extends IdNameDto {
     private LocalDate admissionDate;
     private LocalDate graduationDate;
     private GroupStatus groupStatus;
+//    private String groupStatus;
 }

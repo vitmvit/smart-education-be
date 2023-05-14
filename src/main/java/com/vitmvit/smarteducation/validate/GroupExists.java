@@ -9,6 +9,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * @see "https://www.baeldung.com/spring-boot-bean-validation"
+ * @see "https://www.baeldung.com/spring-mvc-custom-validator"
+ */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = GroupExistsValidator.class)

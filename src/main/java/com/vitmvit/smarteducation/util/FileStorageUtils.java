@@ -1,7 +1,9 @@
 package com.vitmvit.smarteducation.util;
 
 import com.vitmvit.smarteducation.config.singleton.SettingsSingleton;
+import lombok.experimental.UtilityClass;
 
+@UtilityClass
 public class FileStorageUtils {
 
     public static String fileStorage() {

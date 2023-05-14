@@ -1,6 +1,6 @@
 package com.vitmvit.smarteducation.validate.validator;
 
-import com.vitmvit.smarteducation.constant.RoleEnum;
+import com.vitmvit.smarteducation.config.constants.RoleEnum;
 import com.vitmvit.smarteducation.repository.UserRepository;
 import com.vitmvit.smarteducation.validate.ItsMyLogin;
 import lombok.AllArgsConstructor;

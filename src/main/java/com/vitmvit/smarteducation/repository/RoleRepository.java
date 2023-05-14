@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * @see "https://docs.spring.io/spring-data/jpa/docs/current/reference/html/"
+ */
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
 

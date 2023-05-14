@@ -1,6 +1,6 @@
 package com.vitmvit.smarteducation.validate.validator;
 
-import com.vitmvit.smarteducation.constant.RoleEnum;
+import com.vitmvit.smarteducation.config.constants.RoleEnum;
 import com.vitmvit.smarteducation.model.dto.auth.PasswordUpdateRequest;
 import com.vitmvit.smarteducation.model.entity.Role;
 import com.vitmvit.smarteducation.model.entity.User;

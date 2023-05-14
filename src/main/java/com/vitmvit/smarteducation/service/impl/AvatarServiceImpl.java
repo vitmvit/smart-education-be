@@ -9,7 +9,6 @@ import com.vitmvit.smarteducation.service.AvatarService;
 import com.vitmvit.smarteducation.util.AttachmentUtils;
 import com.vitmvit.smarteducation.util.FileStorageUtils;
 import lombok.AllArgsConstructor;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,15 +37,6 @@ public class AvatarServiceImpl implements AvatarService {
                         () -> new EntityNotFoundException("Avatar not found by UUID: " + uuid)
                 )
         );
-    }
-
-    @Override
-    public Resource getResourceByUuid(String uuid) {
-        Avatar avatar = avatarRepository.findByGeneratedName(uuid).orElseThrow(
-                () -> new EntityNotFoundException("Avatar not found by UUID: " + uuid)
-        );
-        AttachmentUtils.AttachmentDto data = AttachmentUtils.getAttachmentFile(avatar);
-        return AttachmentUtils.getResource(new File(data.getFilePathName()));
     }
 
     @Override

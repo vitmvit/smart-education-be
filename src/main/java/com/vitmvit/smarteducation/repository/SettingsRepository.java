@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * @see "https://docs.spring.io/spring-data/jpa/docs/current/reference/html/"
+ */
 @Repository
 public interface SettingsRepository extends JpaRepository<Settings, String> {
 

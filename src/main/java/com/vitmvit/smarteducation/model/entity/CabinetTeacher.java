@@ -20,7 +20,12 @@ public class CabinetTeacher extends Cabinet {
     @Column(name = "group_teacher_id", insertable = false, updatable = false)
     private Long groupTeacherId;
 
-    @OneToOne
-    @JoinColumn(name = "group_teacher_id", referencedColumnName = "id")
-    private SGroup sGroupTeacher;
+    @ManyToOne
+    @JoinColumn(
+            name = "group_teacher_id",
+            referencedColumnName = "id",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "fk_cabinet_teacher_to_group")
+    )
+    private StudentsGroup groupTeacher;
 }

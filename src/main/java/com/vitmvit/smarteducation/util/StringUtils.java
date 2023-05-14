@@ -1,5 +1,8 @@
 package com.vitmvit.smarteducation.util;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class StringUtils {
 
     public static boolean isEmpty(CharSequence source) {

@@ -5,23 +5,20 @@ import com.vitmvit.smarteducation.model.entity.Avatar;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.UtilityClass;
 import org.apache.commons.io.FileUtils;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
+@UtilityClass
 public class AttachmentUtils {
 
     public static Avatar saveAvatar(MultipartFile multipartFile) {
@@ -57,16 +54,6 @@ public class AttachmentUtils {
         //avatar.setMimeType(getFileType(mimeType));
         avatar.setMimeType(multipartFile.getContentType());
         return avatar;
-    }
-
-    public static Resource getResource(File file) {
-        try {
-            Path pathFile = Paths.get(file.getAbsolutePath().replace(file.getName(), ""));
-            Path pathResource = pathFile.resolve(file.getName());
-            return new UrlResource(pathResource.toUri());
-        } catch (MalformedURLException e) {
-            throw new RuntimeException("Cannot get resource from file: " + file.getAbsolutePath());
-        }
     }
 
     public static AttachmentDto getAttachmentFile(Avatar avatar) {
@@ -115,36 +102,7 @@ public class AttachmentUtils {
      * пример: /img/a/b/c/
      */
     private static String getFilePath(String mimeType) {
-        return mimeType == null ? null : getFileType(mimeType).concat(getRandomPath());
-    }
-
-    /**
-     * возвращает расширение файла
-     */
-    private static String getFileType(String mimeType) {
-        if (mimeType.contains("/")) {
-            return mimeType.substring(0, mimeType.indexOf("/") + 1);
-        }
-        return "other/";
-    }
-
-    /**
-     * формирует уникальное имя файла с сохранением расширения
-     */
-    private static String getFullName(MultipartFile multipartFile) {
-        if (multipartFile.getContentType() != null && multipartFile.getContentType().contains("/")) {
-            if (multipartFile.getContentType().startsWith("image")) {
-                return UUID.randomUUID().toString();
-            } else {
-                if (multipartFile.getOriginalFilename() != null && multipartFile.getOriginalFilename().contains("\\.")) {
-                    return UUID.randomUUID() +
-                            multipartFile
-                                    .getOriginalFilename()
-                                    .substring(multipartFile.getOriginalFilename().lastIndexOf("\\."));
-                }
-            }
-        }
-        return UUID.randomUUID().toString();
+        return mimeType == null ? null : getRandomPath();
     }
 
     /**

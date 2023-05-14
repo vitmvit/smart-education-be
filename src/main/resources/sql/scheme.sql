@@ -118,23 +118,56 @@ CREATE TABLE `user`
     `cabinet_teacher_id` bigint                                                        DEFAULT NULL,
     `cabinet_student_id` bigint                                                        DEFAULT NULL,
     `avatar_uuid`        varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci  DEFAULT NULL,
-    `name`               varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-    `last_name`          varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-    `login`              varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-    `middle_name`        varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-    `password_hash`      varchar(900) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-    `phone_number`       varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci  NOT NULL,
-    `student_number`     int                                                           DEFAULT NULL,
-    `active`             tinyint(1)                                                    DEFAULT NULL,
-    `description`        varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-    `date_creation`      datetime                                                      DEFAULT NULL,
-    `last_modified`      datetime                                                      DEFAULT NULL,
-    `version`            bigint                                                        DEFAULT NULL,
+    `name`           varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+    `last_name`      varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+    `login`          varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+    `middle_name`    varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+    `password_hash`  varchar(900) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+    `phone_number`   varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci  NOT NULL,
+    `student_number` int                                                           DEFAULT NULL,
+    `active`         tinyint(1)                                                    DEFAULT NULL,
+    `description`    varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+    `date_creation`  datetime                                                      DEFAULT NULL,
+    `last_modified`  datetime                                                      DEFAULT NULL,
+    `version`        bigint                                                        DEFAULT NULL,
     PRIMARY KEY (`id`),
     KEY `fk_user_to_cabinet_teacher` (`cabinet_teacher_id`),
     KEY `fk_user_to_cabinet_student` (`cabinet_student_id`),
     CONSTRAINT `fk_user_to_cabinet_student` FOREIGN KEY (`cabinet_student_id`) REFERENCES `cabinet` (`id`),
     CONSTRAINT `fk_user_to_cabinet_teacher` FOREIGN KEY (`cabinet_teacher_id`) REFERENCES `cabinet` (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3;
+
+CREATE TABLE `attendance`
+(
+    `id`            bigint NOT NULL AUTO_INCREMENT,
+    `date`          datetime DEFAULT NULL,
+    `group_id`      bigint   DEFAULT NULL,
+    `subject_id`    bigint   DEFAULT NULL,
+    `teacher_id`    bigint   DEFAULT NULL,
+    `lesson_number` int      DEFAULT NULL,
+    `date_creation` datetime DEFAULT NULL,
+    `last_modified` datetime DEFAULT NULL,
+    `version`       bigint   DEFAULT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3;
+
+
+CREATE TABLE `attendance_group`
+(
+    `id`            bigint NOT NULL AUTO_INCREMENT,
+    `attendance_id` bigint NOT NULL,
+    `student_id`    bigint                                                        DEFAULT NULL,
+    `visit`         bit(1)                                                        DEFAULT NULL,
+    `reason`        int                                                           DEFAULT NULL,
+    `description`   varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+    `date_creation` datetime                                                      DEFAULT NULL,
+    `last_modified` datetime                                                      DEFAULT NULL,
+    `version`       bigint                                                        DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `fk_attendance_group_to_attendance_id` (`attendance_id`),
+    CONSTRAINT `fk_attendance_group_to_attendance_id` FOREIGN KEY (`attendance_id`) REFERENCES `attendance` (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb3;
 
